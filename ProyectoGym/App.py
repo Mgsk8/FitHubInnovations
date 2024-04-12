@@ -22,4 +22,4 @@ def controlMenuInicio():
         return vista_menu_inicio()
     else:
         return Inicio_secion()
-app.run(port=81, debug=True)
+app.run(host='0.0.0.0',port=81, debug=True)
