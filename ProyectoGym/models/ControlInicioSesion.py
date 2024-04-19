@@ -9,14 +9,3 @@ def validar_usuario(email, password):
     else:
         return False
     #return existeUsuario
-
-def iniciar_sesion(email, password):
-    #email = request.form["email"]
-    #password = request.form["password"]
-    if validar_usuario(email, password):
-        return redirect("/vista_menu_inicio")
-    else:
-        return redirect("/")
-
-# Se exporta la función para ser utilizada en la vista
-#iniciar_sesion = iniciar_sesion()
