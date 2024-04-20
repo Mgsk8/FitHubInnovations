@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Inicio de Sesión</title>
+    <title>Cambio de contraseña</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -12,8 +12,7 @@
       rel="stylesheet"
       href="../../static/bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="/static/Css/InicioSesion.css" />
-    <script src="/static/js/InicioSesion.js"></script>
+    <link rel="stylesheet" href="/static/Css/OlvidarContraseña.css" />
   </head>
 
   <body>
@@ -27,11 +26,11 @@
               <div class="row">
                 <div class="col-12">
                   <div class="mb-5 text-center">
-                    <h3 class="fw-bold">Inicio de Sesión</h3>
+                    <h3 class="fw-bold">Olvidaste tu contraseña?</h3>
                   </div>
                 </div>
               </div>
-              <form method="POST" action="/control_menu_inicio">
+              <form method="POST" action="/Control_Cambio_Contraseña">
                 <div class="row gy-3 overflow-hidden">
                   <div class="col-12">
                     <div class="form-floating mb-3">
@@ -48,49 +47,15 @@
                       >
                     </div>
                   </div>
-                  <div class="col-12 position-relative">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="password"
-                        class="form-control"
-                        name="password"
-                        id="password"
-                        value=""
-                        placeholder="Contraseña"
-                        required
-                      />
-                      <label for="password" class="form-label"
-                        >Contraseña</label
-                      >
-                      <span
-                        class="password-toggle bi bi-eye position-absolute"
-                        onclick="togglePasswordVisibility()"
-                      ></span>
-                    </div>
-                  </div>
                   <div class="col-12">
                     <div class="d-grid">
                       <button class="btn btn-lg btn-primary" type="submit">
-                        Iniciar Sesión
+                        enviar correo electrónico para restablecer contraseña
                       </button>
                     </div>
                   </div>
                 </div>
               </form>
-              <div class="row mt-4">
-                <div class="col-12">
-                  <hr />
-                  <div class="d-flex justify-content-center">
-                    <a href="/register" class="btn btn-sm btn-link"
-                      >Crear una Cuenta Nueva</a
-                    >
-                    <span class="mx-2 text-muted">·</span>
-                    <a href="/password_reset" class="btn btn-sm btn-link"
-                      >¿Olvidaste tu Contraseña?</a
-                    >
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

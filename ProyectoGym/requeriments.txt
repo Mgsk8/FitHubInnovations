@@ -10,5 +10,6 @@ MarkupSafe==2.1.5
 mysql-connector-python==8.3.0
 mysqlclient==2.2.4
 platformdirs==4.2.0
+python-dotenv==1.0.1
 virtualenv==20.25.1
 Werkzeug==3.0.2
