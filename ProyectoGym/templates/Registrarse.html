@@ -15,23 +15,42 @@
         <div class="note">
           <p>Welcome to fithub innovations, register here</p>
         </div>
-
+        <form method="POST" action="/controlregistro">
         <div class="form-content">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <input
                   type="text"
+                  name="nombre"
                   class="form-control"
-                  placeholder="Your Name *"
+                  placeholder="Nombres"
                   value=""
                 />
               </div>
               <div class="form-group">
                 <input
                   type="text"
+                  name="apellido"
                   class="form-control"
-                  placeholder="Phone Number *"
+                  placeholder="Apellido"
+                  value=""
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="cedula_usuario"
+                  class="form-control"
+                  placeholder="Cedula"
+                  value=""
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="date"
+                  name="fecha_nac"
+                  class="form-control"
                   value=""
                 />
               </div>
@@ -39,24 +58,35 @@
             <div class="col-md-6">
               <div class="form-group">
                 <input
-                  type="text"
+                  type="password"
                   class="form-control"
-                  placeholder="Your Password *"
+                  placeholder="Password"
+                  value=""
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  placeholder="Confirm Password *"
                   value=""
                 />
               </div>
               <div class="form-group">
                 <input
                   type="text"
+                  name="email"
                   class="form-control"
-                  placeholder="Confirm Password *"
+                  placeholder="Email*"
                   value=""
                 />
               </div>
             </div>
           </div>
-          <button type="button" class="btnSubmit">Submit</button>
+          <button type="submit" class="btnSubmit">Submit</button>
         </div>
+      </form>
       </div>
     </div>
   </body>

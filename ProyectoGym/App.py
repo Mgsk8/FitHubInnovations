@@ -1,7 +1,9 @@
 from flask import Flask,render_template, request, redirect, url_for, session
 from models.ControlInicioSesion import validar_usuario
+from models.controlRegistro import registro_usuario
 from models.ControlOlvidarContraseña import validarCorreo, enviarCorreo
 from models.consultas import *
+
 
 app = Flask(__name__)
 
@@ -41,8 +43,18 @@ def controlCambioContraseña():
         enviarCorreo(email)
         return render_template('MsjCambioPass.html')
     else:
-        #flash('Usuario no encontrado!!')
         return redirect(url_for('Inicio_secion'))
+    
+@app.route("/controlregistro", methods=["POST"])
+def controlregistro():
+    nombre = request.form["nombre"]
+    apellido = request.form["apellido"]
+    cedula = request.form["cedula_usuario"]
+    email = request.form["email"]
+    password = request.form["password"]
+    registro_usuario(cedula, nombre, apellido, email, password)
+    print (nombre, apellido, cedula, email, password)
+    return register()
     
 @app.route("/cambio")
 def cambio():
