@@ -39,24 +39,14 @@ def controlCambioContraseña():
     if validar:
         session['email'] = email
         enviarCorreo(email)
-        session.pop('cambio_password',None)
         return render_template('MsjCambioPass.html')
     else:
         #flash('Usuario no encontrado!!')
         return redirect(url_for('Inicio_secion'))
     
-@app.route("/cambio", methods=["GET"])
+@app.route("/cambio")
 def cambio():
-    # Verificar si el usuario ya ha accedido a esta ruta
-    if session.get('cambio_password', False):
-        # El usuario ya ha accedido a esta ruta, redirigir a una página de error o a la página principal
-        return "Esta página ya ha sido accedida una vez."
-    else:
-        # Marcar la sesión como que el usuario ha accedido a esta ruta
-        session['cambio_password'] = True
-        # Renderizar la plantilla para cambiar la contraseña
-        return render_template('CambioContraseña.html')
-    
+    return render_template('CambioContraseña.html')
 
 @app.route("/restablecerPassword", methods=["POST"])
 def restablecerContraseña():
