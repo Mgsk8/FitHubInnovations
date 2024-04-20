@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prueba</title>
+    <style>
+      .miIframe {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="dashboard-iframe" class="miIframe" src="dashboardAdmin.html">
+      <script>
+        // Ejecutar la función para modificar el dashboard al cargar la página
+        window.onload = function() {
+            modificarDashboard();
+        };
+        
+        // Función para modificar el contenido del dashboard
+        function modificarDashboard() {
+            // Acceder al documento dentro del iframe
+            var dashboardIframe = document.getElementById("dashboard-iframe");
+            var dashboardDocument = dashboardIframe.contentDocument || dashboardIframe.contentWindow.document;
+            
+            // Modificar el contenido del dashboard
+            dashboardDocument.getElementById("dashboard-container").innerHTML 
+            = "<div class='container-fluid' id='dashboard-container'><h1>Hola</h1></div>";
+        }
+        </script>
+  </body>
+</html>
