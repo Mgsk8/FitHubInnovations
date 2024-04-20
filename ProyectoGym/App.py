@@ -1,5 +1,6 @@
 from flask import Flask,render_template, request
 from models.ControlInicioSesion import validar_usuario
+from models.controlRegistro import registro_usuario
 
 app = Flask(__name__)
 
@@ -22,4 +23,16 @@ def controlMenuInicio():
         return vista_menu_inicio()
     else:
         return Inicio_secion()
+    
+@app.route("/controlregistro", methods=["POST"])
+def controlregistro():
+    nombre = request.form["nombre"]
+    apellido = request.form["apellido"]
+    cedula = request.form["cedula_usuario"]
+    email = request.form["email"]
+    password = request.form["password"]
+    registro_usuario(cedula, nombre, apellido, email, password)
+    print (nombre, apellido, cedula, email, password)
+    return register()
+
 app.run(host='0.0.0.0',port=81, debug=True)
