@@ -13,13 +13,20 @@ def register():
 @app.route("/vista_menu_inicio")
 def vista_menu_inicio():
     return render_template('VistaMenuInicio.html')
+@app.route("/vista_menu_inicio_admin")
+def vista_menu_inicio_admin():
+    return render_template('administrador/VistaMenuInicioAdmin.html')
+
+@app.route("/vista_admins_admin")
+def vista_admins_admin():
+    return render_template('administrador/VistaAdministradoresAdmin.html')
 @app.route("/control_menu_inicio", methods=["POST"])
 def controlMenuInicio():
     email = request.form["email"]
     password = request.form["password"]
     validar = validar_usuario(email, password)
     if validar:
-        return vista_menu_inicio()
+        return vista_menu_inicio_admin()
     else:
         return Inicio_secion()
 app.run(host='0.0.0.0',port=81, debug=True)
