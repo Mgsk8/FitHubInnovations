@@ -1,5 +1,10 @@
 <html>
-    <header>
-        {%include 'administrador/dashboardAdmin.html'%}
-    </header>
+    {%extends'administrador/dashboardAdmin.html'%}
+
+    {% block page_content %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Lista Administradores</h1>
+    </div>
+    {% endblock %}
 </html>
