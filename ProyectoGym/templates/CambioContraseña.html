@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Inicio de Sesión</title>
+    <title>Ingresar Contraseña Nueva</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -12,12 +12,10 @@
       rel="stylesheet"
       href="../../static/bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="/static/Css/InicioSesion.css" />
-    <script src="/static/js/InicioSesion.js"></script>
+    <link rel="stylesheet" href="/static/Css/OlvidarContraseña.css" />
   </head>
-
   <body>
-    <!-- Login 6 - Bootstrap Brain Component -->
+    <!-- Cambio de Contraseña -->
 
     <div class="container">
       <div class="row justify-content-center">
@@ -27,70 +25,57 @@
               <div class="row">
                 <div class="col-12">
                   <div class="mb-5 text-center">
-                    <h3 class="fw-bold">Inicio de Sesión</h3>
+                    <h3 class="fw-bold">Ingresar Contraseña Nueva</h3>
                   </div>
                 </div>
               </div>
-              <form method="POST" action="/control_menu_inicio">
+              {% if error %}
+              <div class="alert alert-danger" role="alert">{{ error }}</div>
+              {% endif %}
+              {% if errorVerificar %}
+              <div class="alert alert-danger" role="alert">{{ errorVerificar }}</div>
+              {% endif %}
+              <form method="POST" action="/restablecerPassword">
                 <div class="row gy-3 overflow-hidden">
                   <div class="col-12">
-                    <div class="form-floating mb-3">
-                      <input
-                        type="email"
-                        class="form-control"
-                        name="email"
-                        id="email"
-                        placeholder="name@example.com"
-                        required
-                      />
-                      <label for="email" class="form-label"
-                        >Correo Electrónico</label
-                      >
-                    </div>
-                  </div>
-                  <div class="col-12 position-relative">
                     <div class="form-floating mb-3">
                       <input
                         type="password"
                         class="form-control"
                         name="password"
                         id="password"
-                        value=""
                         placeholder="Contraseña"
                         required
                       />
                       <label for="password" class="form-label"
-                        >Contraseña</label
+                        >Ingresar Contraseña</label
                       >
-                      <span
-                        class="password-toggle bi bi-eye position-absolute"
-                        onclick="togglePasswordVisibility()"
-                      ></span>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-floating mb-3">
+                      <input
+                        type="password"
+                        class="form-control"
+                        name="confirmPassword"
+                        id="confirmPassword"
+                        placeholder="Confirmar Contraseña"
+                        required
+                      />
+                      <label for="confirmPassword" class="form-label"
+                        >Confirmar Contraseña</label
+                      >
                     </div>
                   </div>
                   <div class="col-12">
                     <div class="d-grid">
                       <button class="btn btn-lg btn-primary" type="submit">
-                        Iniciar Sesión
+                        Confirmar
                       </button>
                     </div>
                   </div>
                 </div>
               </form>
-              <div class="row mt-4">
-                <div class="col-12">
-                  <hr />
-                  <div class="d-flex justify-content-center">
-                    <a href="/register" class="btn btn-sm btn-link"
-                      >Crear una Cuenta Nueva</a
-                    >
-                    <span class="mx-2 text-muted">·</span>
-                    <a href="/password_reset" class="btn btn-sm btn-link"
-                      >¿Olvidaste tu Contraseña?</a
-                    >
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
