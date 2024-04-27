@@ -31,6 +31,18 @@ def vista_menu_inicio_admin():
 @app.route("/vista_admins_admin")
 def vista_admins_admin():
     return render_template('administrador/VistaAdministradoresAdmin.html')
+@app.route("/vista_sup_admin")
+def vista_sup_admin():
+    return render_template('administrador/VistaSupervisoresAdmin.html')
+@app.route("/vista_rec_admin")
+def vista_rec_admin():
+    return render_template('administrador/VistaRecepcionistasAdmin.html')
+@app.route("/vista_ent_admin")
+def vista_ent_admin():
+    return render_template('administrador/VistaEntrenadoresAdmin.html')
+@app.route("/vista_cli_admin")
+def vista_cli_admin():
+    return render_template('administrador/VistaClientesAdmin.html')
 
 @app.route("/control_menu_inicio", methods=["POST"])
 def controlMenuInicio():

@@ -8,7 +8,7 @@
 {% block page_content %}
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Lista Administradores</h1>
+    <h1 class="h3 mb-0 text-gray-800">Control Usuarios</h1>
 </div>
 
 <div class="container">
@@ -44,39 +44,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-                            <label for="checkbox1"></label>
-                        </span>
-                    </td>
-                    <td>0966686371</td>
-                    <td>Raul</td>
-                    <td>Ramon</td>
-                    <td>01/01/2021</td>
-                    <td>soengsouy@mail.com</td>
-                    <td>holi</td>
-                    <td>Activo</td>
-                    <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                    </td>
-                </tr>
+                {% block table_content %}
+                {% endblock  %}
             </tbody>
         </table>
-        <div class="clearfix">
-            <div class="hint-text">Showing <b>5</b> out of <b>100</b> entries</div>
-            <ul class="pagination">
-                <li class="page-item disabled"><a href="#">Previous</a></li>
-                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                <li class="page-item"><a href="#" class="page-link">Next</a></li>
-            </ul>
-        </div>
     </div>
 </div>
 <!-- Edit Modal HTML -->
