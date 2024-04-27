@@ -98,3 +98,50 @@ def registro(cedula, nombre, apellido, email, password):
             database.desconectar(conexion)
     else:
         print("Error de conexión a la base de datos.")
+
+def consultarFila(tabla, campo, valor ):
+    conexion = database.conectar()
+    fila = []
+    if conexion:
+        try:
+            cursor = conexion.cursor()
+            sql = "SELECT * FROM {} WHERE {} = %s;".format(tabla,campo)
+            cursor.execute(sql, (valor,))
+            resultados = cursor.fetchone()
+            if resultados:
+                fila = list(resultados)
+                print("Datos de la fila: ", fila)
+                return fila
+            else:
+                print("no se encontraron resultados a la consulta.")
+                return False
+        except Exception as ex:
+            print(f"Error al ejecutar la consulta: {ex}")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            database.desconectar(conexion)
+
+def actualizarFila(tabla, datos, condicion):
+    conexion = database.conectar()
+    if conexion:
+        try:
+            cursor = conexion.cursor()
+            sql = "UPDATE {} SET ".format(tabla)
+            for i, dato in enumerate(datos):
+                sql += f"{dato}"
+                if i < len(datos) - 1:
+                    sql += ", "
+            sql += f" WHERE {condicion}"
+            cursor.execute(sql)
+            print(sql, "\n")
+            print("datos actualizados correctamente")
+        except Exception as ex:
+            print(f"Error al actualizar: {ex}")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            database.desconectar(conexion)
+
