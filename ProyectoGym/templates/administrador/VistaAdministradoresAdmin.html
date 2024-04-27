@@ -2,3 +2,24 @@
 {% block titulo %}
 Control Administradores
 {% endblock %}
+{% block table_content %}
+<tr>
+    <td>
+        <span class="custom-checkbox">
+            <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+            <label for="checkbox1"></label>
+        </span>
+    </td>
+    <td>0966686371</td>
+    <td>Raul</td>
+    <td>Ramon</td>
+    <td>01/01/2021</td>
+    <td>soengsouy@mail.com</td>
+    <td>holi</td>
+    <td>Activo</td>
+    <td>
+        <a href="#editEmpleadoModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+        <a href="#EliminarEmpleadoModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+    </td>
+</tr>
+{% endblock %}
