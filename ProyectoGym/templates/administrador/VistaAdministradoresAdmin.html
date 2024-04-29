@@ -1,5 +1,9 @@
 {% extends'administrador/controlUsuarios.html' %}
 
+{% block nombreUsuario %}
+    {{ dataLogin.nombre }}
+{% endblock %}
+
 {% block titulo %}
 Control Administradores
 {% endblock %}
