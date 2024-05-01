@@ -2,3 +2,35 @@
 {% block titulo %}
 Control Entrenadores
 {% endblock %}
+
+{% block table_content %}
+<tbody>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>
+            <span class="custom-checkbox">
+                <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                <label for="checkbox1"></label>
+            </span>
+        </td>
+        <td> {{usuario[0]}}</td>
+        <td> {{usuario[1]}}</td>
+        <td> {{usuario[2]}}</td>
+        <td> {{usuario[4]}}</td>
+        <td> {{usuario[5]}}</td>
+        <td> {{usuario[3]}}</td>
+        <td> {{usuario[7]}}</td>
+        <td>
+            <a href="#editEmpleadoModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                    title="Edit">&#xE254;</i></a>
+            <a href="#EliminarEmpleadoModal" class="delete" data-toggle="modal"><i class="material-icons"
+                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+
+
+</tbody>
+
+{% endblock %}

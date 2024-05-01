@@ -38,27 +38,42 @@ def vista_menu_inicio_admin():
 @app.route("/vista_admins_admin")
 def vista_admins_admin():
     if 'conectado' in session:
-        return render_template('administrador/VistaAdministradoresAdmin.html', dataLogin = dataLoginSesion())
+        tipo = "Administrador"
+        usuarios = consultarMatriz('usuario')  
+        usuario_admin = [usuario for usuario in usuarios if usuario[6] == tipo]
+        return render_template('administrador/VistaAdministradoresAdmin.html', dataLogin = dataLoginSesion(),usuarios = usuario_admin)
     return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_sup_admin")
 def vista_sup_admin():
     if 'conectado' in session:
-        return render_template('administrador/VistaSupervisoresAdmin.html', dataLogin = dataLoginSesion())
+        tipo = "Supervisor"
+        usuarios = consultarMatriz('usuario')  
+        usuario_super = [usuario for usuario in usuarios if usuario[6] == tipo]
+        return render_template('administrador/VistaSupervisoresAdmin.html', dataLogin = dataLoginSesion(), usuarios = usuario_super)
     return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_rec_admin")
 def vista_rec_admin():
     if 'conectado' in session:
-        return render_template('administrador/VistaRecepcionistasAdmin.html', dataLogin = dataLoginSesion())
+        tipo = "Recepcionista"
+        usuarios = consultarMatriz('usuario')  
+        usuario_recep = [usuario for usuario in usuarios if usuario[6] == tipo]
+        return render_template('administrador/VistaRecepcionistasAdmin.html', dataLogin = dataLoginSesion(), usuarios = usuario_recep)
     return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_ent_admin")
 def vista_ent_admin():
     if 'conectado' in session:
-        return render_template('administrador/VistaEntrenadoresAdmin.html', dataLogin = dataLoginSesion())
+        tipo = "Entrenador"
+        usuarios = consultarMatriz('usuario')  
+        usuario_entre = [usuario for usuario in usuarios if usuario[6] == tipo]
+        return render_template('administrador/VistaEntrenadoresAdmin.html', dataLogin = dataLoginSesion(), usuarios = usuario_entre)
     return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_cli_admin")
 def vista_cli_admin():
     if 'conectado' in session:
-        return render_template('administrador/VistaClientesAdmin.html', dataLogin = dataLoginSesion())
+        tipo = "Cliente"
+        usuarios = consultarMatriz('usuario')  
+        usuario_cliente = [usuario for usuario in usuarios if usuario[6] == tipo]
+        return render_template('administrador/VistaClientesAdmin.html', dataLogin = dataLoginSesion(), usuarios = usuario_cliente)
     return redirect(url_for('vista_menu_inicio_admin'))
 
 @app.route("/control_menu_inicio", methods=["POST"])
