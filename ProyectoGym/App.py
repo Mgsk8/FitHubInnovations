@@ -38,7 +38,8 @@ def vista_menu_inicio_admin():
 @app.route("/vista_admins_admin")
 def vista_admins_admin():
     if 'conectado' in session:
-        return render_template('administrador/VistaAdministradoresAdmin.html', dataLogin = dataLoginSesion())
+        usuarios = consultarMatriz('usuario')
+        return render_template('administrador/VistaAdministradoresAdmin.html', dataLogin = dataLoginSesion(),usuarios = usuarios)
     return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_sup_admin")
 def vista_sup_admin():

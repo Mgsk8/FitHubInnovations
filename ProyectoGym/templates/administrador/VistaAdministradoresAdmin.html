@@ -9,47 +9,34 @@ Control Administradores
 {% endblock %}
 
 {% block table_content %}
-<tr>
-    <td>
-        <span class="custom-checkbox">
-            <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-            <label for="checkbox1"></label>
-        </span>
-    </td>
-    <td>0966686371</td>
-    <td>Raul</td>
-    <td>Ramon</td>
-    <td>01/01/2021</td>
-    <td>soengsouy@mail.com</td>
-    <td>holi</td>
-    <td>Activo</td>
-    <td>
-        <a href="#editEmpleadoModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
-                title="Edit">&#xE254;</i></a>
-        <a href="#EliminarEmpleadoModal" class="delete" data-toggle="modal"><i class="material-icons"
-                data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-    </td>
-</tr>
 
-<tr>
-    <td>
-        <span class="custom-checkbox">
-            <input type="checkbox" id="checkbox1" name="options[]" value="1" />
-            <label for="checkbox1"></label>
-        </span>
-    </td>
-    <td>0766686372</td>
-    <td>Pipe</td>
-    <td>Water</td>
-    <td>01/01/2021</td>
-    <td>water@mail.com</td>
-    <td>holi</td>
-    <td>Activo</td>
-    <td>
-        <a href="#editEmpleadoModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
-                title="Edit">&#xE254;</i></a>
-        <a href="#EliminarEmpleadoModal" class="delete" data-toggle="modal"><i class="material-icons"
-                data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-    </td>
+<tbody>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>
+            <span class="custom-checkbox">
+                <input type="checkbox" id="checkbox1" name="options[]" value="1" />
+                <label for="checkbox1"></label>
+            </span>
+        </td>
+        <td> {{usuario[0]}}</td>
+        <td> {{usuario[1]}}</td>
+        <td> {{usuario[2]}}</td>
+        <td> {{usuario[5]}}</td>
+        <td> {{usuario[6]}}</td>
+        <td> {{usuario[9]}}</td>
+        <td> {{usuario[8]}}</td>
+        <td>
+            <a href="#editEmpleadoModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                    title="Edit">&#xE254;</i></a>
+            <a href="#EliminarEmpleadoModal" class="delete" data-toggle="modal"><i class="material-icons"
+                    data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+
+
+</tbody>
 </tr>
 {% endblock %}
