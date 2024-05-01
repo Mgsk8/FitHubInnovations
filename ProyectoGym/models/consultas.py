@@ -128,15 +128,18 @@ def actualizarFila(tabla, datos, condicion):
     if conexion:
         try:
             cursor = conexion.cursor()
-            sql = "UPDATE {} SET ".format(tabla)
-            for i, dato in enumerate(datos):
-                sql += f"{dato}"
-                if i < len(datos) - 1:
+            sql = f"UPDATE {tabla} SET "
+            for dato in range(0,len(datos)):
+                sql += f"{datos[dato]}"
+                if dato < len(datos) - 1:
                     sql += ", "
             sql += f" WHERE {condicion}"
             cursor.execute(sql)
-            print(sql, "\n")
-            print("datos actualizados correctamente")
+            conexion.commit()
+            if cursor.rowcount > 0:
+                print("datos actualizados correctamente")
+            else:
+                print("datos no actualizados")
         except Exception as ex:
             print(f"Error al actualizar: {ex}")
             return False
