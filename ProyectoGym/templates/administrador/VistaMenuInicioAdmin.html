@@ -6,5 +6,10 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Menú de Inicio</h1>
     </div>
+    {% if(dataLogin.tipoLogin ==1) %}
+            <p class="text-center">Hola señor/a <strong> {{ dataLogin.tipo_usuario }} {{ dataLogin.nombre }},</strong> bienvenido al menú inicio</p>
+        {% else %}
+        <p class="text-center">Hola señor/a <strong> {{ dataLogin.tipo_usuario }} {{ dataLogin.nombre }},</strong> bienvenido al menú inicio</p>
+    {% endif %}
     {% endblock %}
 </html>

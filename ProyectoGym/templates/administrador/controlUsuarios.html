@@ -1,8 +1,9 @@
 <html>
 <link rel="stylesheet" href="../../static/Css/TablaCrud.css">
 <link rel="stylesheet" href="../../static/bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <script href="../../static/js/TablaCrud.js"></script>
+
 {% extends'administrador/dashboardAdmin.html' %}
 
 {% block page_content %}
@@ -10,8 +11,10 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Control Usuarios</h1>
 </div>
-
 <div class="container">
+    <div>
+        <input type="text" class="form-control" id="input-search" placeholder="Buscar usuario...">
+    </div>
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
@@ -19,8 +22,10 @@
                     <h2>{% block titulo %} Control de usuarios | {% endblock %}</h2>
                 </div>
                 <div class="col-sm-6">
-                    <a href="#aggEmpleadoModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Añadir Nuevo Empleado</span></a>
-                    <a href="#eliminarEmpleadoModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Eliminar</span></a>
+                    <a href="#aggEmpleadoModal" class="btn btn-success" data-toggle="modal"><i
+                            class="material-icons">&#xE147;</i> <span>Añadir Nuevo Empleado</span></a>
+                    <a href="#eliminarEmpleadoModal" class="btn btn-danger" data-toggle="modal"><i
+                            class="material-icons">&#xE15C;</i> <span>Eliminar</span></a>
                 </div>
             </div>
         </div>
@@ -43,9 +48,9 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody-usuarios">
                 {% block table_content %}
-                {% endblock  %}
+                {% endblock %}
             </tbody>
         </table>
     </div>
@@ -141,6 +146,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("input-search").addEventListener("input", onInputChange)
+    function onInputChange() {
+        let inputText = document.getElementById("input-search").value.toString().toLowerCase();
+        console.log(inputText)
+        let tableBody = document.getElementById("tbody-usuarios");
+        let tableRows = tableBody.getElementsByTagName("tr");
+        for (let i = 0; i < tableRows.length; i++) {
+            console.log(tableRows[i].cells[1].textContent)
+            let textoConsulta = tableRows[i].cells[1].textContent.toString().toLowerCase()
+            if (textoConsulta.indexOf(inputText) === -1) {
+                tableRows[i].style.visibility = "collapse";
+            } else {
+                tableRows[i].style.visibility = "";
+            }
+            textoConsulta = tableRows[i].cells[5].textContent.toString().toLowerCase()
+            if (textoConsulta.indexOf(inputText) === -1) {
+                tableRows[i].style.visibility = "collapse";
+            } else {
+                tableRows[i].style.visibility = "";
+            }
+        }
+    }
+</script>
 
 {% endblock %}
 

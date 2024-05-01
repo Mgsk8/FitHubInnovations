@@ -1,8 +1,9 @@
 from flask import Flask,render_template, request, redirect, url_for, session
-from models.ControlInicioSesion import validar_usuario
+from models.ControlInicioSesion import validar_usuario, inicio_sesion_prueba
 from models.controlRegistro import registro_usuario
 from models.ControlOlvidarContraseña import validarCorreo, enviarCorreo
 from models.consultas import *
+from Util.Session import *
 
 
 app = Flask(__name__)
@@ -11,6 +12,10 @@ app.secret_key = '12345'
 
 @app.route("/")
 def Inicio_secion():
+    # Eliminar datos de sesión, esto cerrará la sesión del usuario
+    session.pop('conectado', None)
+    session.pop('cedula_usuario', None)
+    session.pop('email', None)
     return render_template('VistaInicioSesion.html')
 @app.route("/register")
 def register():
@@ -26,31 +31,45 @@ def vista_menu_inicio():
 
 @app.route("/vista_menu_inicio_admin")
 def vista_menu_inicio_admin():
-    return render_template('administrador/VistaMenuInicioAdmin.html')
+    if 'conectado' in session:
+        return render_template('administrador/VistaMenuInicioAdmin.html', dataLogin = dataLoginSesion())
+    return redirect(url_for('Inicio_sesion'))
 
 @app.route("/vista_admins_admin")
 def vista_admins_admin():
-    return render_template('administrador/VistaAdministradoresAdmin.html')
+    if 'conectado' in session:
+        return render_template('administrador/VistaAdministradoresAdmin.html', dataLogin = dataLoginSesion())
+    return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_sup_admin")
 def vista_sup_admin():
-    return render_template('administrador/VistaSupervisoresAdmin.html')
+    if 'conectado' in session:
+        return render_template('administrador/VistaSupervisoresAdmin.html', dataLogin = dataLoginSesion())
+    return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_rec_admin")
 def vista_rec_admin():
-    return render_template('administrador/VistaRecepcionistasAdmin.html')
+    if 'conectado' in session:
+        return render_template('administrador/VistaRecepcionistasAdmin.html', dataLogin = dataLoginSesion())
+    return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_ent_admin")
 def vista_ent_admin():
-    return render_template('administrador/VistaEntrenadoresAdmin.html')
+    if 'conectado' in session:
+        return render_template('administrador/VistaEntrenadoresAdmin.html', dataLogin = dataLoginSesion())
+    return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_cli_admin")
 def vista_cli_admin():
-    return render_template('administrador/VistaClientesAdmin.html')
+    if 'conectado' in session:
+        return render_template('administrador/VistaClientesAdmin.html', dataLogin = dataLoginSesion())
+    return redirect(url_for('vista_menu_inicio_admin'))
 
 @app.route("/control_menu_inicio", methods=["POST"])
 def controlMenuInicio():
     email = request.form["email"]
     password = request.form["password"]
-    validar = validar_usuario(email, password)
-    if validar:
-        return redirect(url_for('vista_menu_inicio'))
+    #validar = validar_usuario(email, password)
+    dataLogin = inicio_sesion_prueba(email, password)
+    if dataLogin:
+        return render_template('administrador/VistaMenuInicioAdmin.html', dataLogin = dataLoginSesion())
+        #return redirect(url_for('vista_menu_inicio_admin'))
     else:
         return redirect(url_for('Inicio_secion'))
     
@@ -96,5 +115,14 @@ def restablecerContraseña():
     else:
         error_message = "Las contraseñas no coinciden. Por favor Intentalo de nuevo"
         return render_template('cambioContraseña.html',error = error_message)
+@app.route('/cerrar_sesion')
+def cerrar_sesion():
+    msgClose = ''
+    # Eliminar datos de sesión, esto cerrará la sesión del usuario
+    session.pop('conectado', None)
+    session.pop('cedula_usuario', None)
+    session.pop('email', None)
+    msgClose ="La sesión fue cerrada correctamente"
+    return render_template('VistaInicioSesion.html' , msjAlert = msgClose, typeAlert=1)
 
 app.run(host='0.0.0.0',port=81, debug=True)
