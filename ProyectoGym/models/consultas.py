@@ -127,15 +127,18 @@ def actualizarFila(tabla, datos, condicion):
     if conexion:
         try:
             cursor = conexion.cursor()
-            sql = "UPDATE {} SET ".format(tabla)
-            for i, dato in enumerate(datos):
-                sql += f"{dato}"
-                if i < len(datos) - 1:
+            sql = f"UPDATE {tabla} SET "
+            for dato in range(0,len(datos)):
+                sql += f"{datos[dato]}"
+                if dato < len(datos) - 1:
                     sql += ", "
             sql += f" WHERE {condicion}"
             cursor.execute(sql)
-            print(sql, "\n")
-            print("datos actualizados correctamente")
+            conexion.commit()
+            if cursor.rowcount > 0:
+                print("datos actualizados correctamente")
+            else:
+                print("datos no actualizados")
         except Exception as ex:
             print(f"Error al actualizar: {ex}")
             return False
@@ -144,3 +147,51 @@ def actualizarFila(tabla, datos, condicion):
                 cursor.close()
             database.desconectar(conexion)
 
+def consultarMatriz(tabla):
+    conexion = database.conectar()
+   
+    matriz = []
+    if conexion:
+        try:
+            cursor = conexion.cursor()
+            sql = "SELECT * FROM {} ;"
+            cursor.execute(sql.format(tabla))
+            resultados = cursor.fetchall()
+            if resultados is not None:
+                for fila in resultados:
+                    matriz.append(fila)
+                return matriz
+            else:
+                print("no se encontraron resultados a la consulta.")
+                False
+
+        except Exception as ex:
+            print(f"Error al ejecutar la consulta: {ex}")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            database.desconectar(conexion)
+
+def delete(tabla, campo, dato):
+    conexion = database.conectar()
+    if conexion:
+        try:
+            cursor = conexion.cursor()
+            sql = "DELETE FROM {} WHERE {} = %s;".format(tabla, campo)
+            cursor.execute(sql,(dato,))
+            conexion.commit()
+            filas_afectadas = cursor.rowcount
+            if filas_afectadas > 0:
+                print("datos de la fila eliminados. ")
+                return True
+            else:
+                print("no se eliminaron los datos de la consulta.")
+                return False
+        except Exception as ex:
+            print(f"Error al ejecutar el delete: {ex}")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            database.desconectar(conexion)
