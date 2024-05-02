@@ -1,5 +1,5 @@
 from flask import redirect
-from models.consultas import registro 
+from controllers.consultas import registro 
 
 
     

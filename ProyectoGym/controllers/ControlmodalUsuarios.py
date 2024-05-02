@@ -1,5 +1,5 @@
 from flask import redirect, url_for
-from models import consultas
+from controllers import consultas
 
 def desactivar_usuario(id_usuario):
     datos = []

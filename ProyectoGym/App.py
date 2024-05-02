@@ -1,10 +1,10 @@
 from flask import Flask,render_template, request, redirect, url_for, session
-from models.ControlInicioSesion import validar_usuario, inicio_sesion_prueba
-from models.controlRegistro import registro_usuario
-from models.ControlOlvidarContraseña import validarCorreo, enviarCorreo
-from models.consultas import *
+from controllers.ControlInicioSesion import validar_usuario, inicio_sesion_prueba
+from controllers.controlRegistro import registro_usuario
+from controllers.ControlOlvidarContraseña import validarCorreo, enviarCorreo
+from controllers.consultas import *
 from Util.Session import *
-from models import ControlmodalUsuarios
+from controllers import ControlmodalUsuarios
 
 
 app = Flask(__name__)

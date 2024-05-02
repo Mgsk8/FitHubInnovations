@@ -1,5 +1,5 @@
 from flask import redirect
-from models.consultas import inicio_sesion
+from controllers.consultas import inicio_sesion
 from flask import session
 from Util.Session import *
 def validar_usuario(email, password):

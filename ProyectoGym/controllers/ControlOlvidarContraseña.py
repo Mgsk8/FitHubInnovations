@@ -1,5 +1,5 @@
 from flask import redirect
-from models.consultas import consultarCorreo
+from controllers.consultas import consultarCorreo
 import smtplib
 import os
 from dotenv import load_dotenv
