@@ -4,6 +4,6 @@ from models.consultas import registro
 
     
 
-def registro_usuario(cedula, nombre, apellido, email, password):
-    registro(cedula, nombre, apellido, email, password)
+def registro_usuario(cedula, nombre, apellido,telefono, fecha_nacimiento, email, tipo_usuario, estado, password):
+    registro(cedula, nombre, apellido, telefono, fecha_nacimiento, email, tipo_usuario, estado, password)
     
