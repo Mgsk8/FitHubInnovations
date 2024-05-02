@@ -77,13 +77,13 @@ def verificarContraseña(password, email):
                 cursor.close()
             database.desconectar(conexion)
 
-def registro(cedula, nombre, apellido, email, password):
+def registro(cedula, nombre, apellido, telefono, fecha_nacimiento, email, tipo_usuario, estado, password):
     conexion = database.conectar()
     if conexion:
         try:
             cursor = conexion.cursor()
-            sql = "INSERT INTO usuario (cedula_usuario, nombre, apellido, email, password) VALUES (%s, %s, %s, %s, %s);"
-            cursor.execute(sql, (cedula, nombre, apellido, email, password))
+            sql = "INSERT INTO usuario (cedula_usuario, nombre, apellido, telefono, fecha_nacimiento, email, tipo_usuario, estado, password) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);"
+            cursor.execute(sql, (cedula, nombre, apellido, telefono, fecha_nacimiento, email, tipo_usuario, estado, password))
             conexion.commit()  # Agregamos el commit para confirmar los cambios
             print("Usuario registrado exitosamente.")
             return True
@@ -149,7 +149,6 @@ def actualizarFila(tabla, datos, condicion):
 
 def consultarMatriz(tabla):
     conexion = database.conectar()
-   
     matriz = []
     if conexion:
         try:

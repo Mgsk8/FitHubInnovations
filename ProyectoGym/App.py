@@ -4,6 +4,7 @@ from models.controlRegistro import registro_usuario
 from models.ControlOlvidarContraseña import validarCorreo, enviarCorreo
 from models.consultas import *
 from Util.Session import *
+from models import ControlmodalUsuarios
 
 
 app = Flask(__name__)
@@ -39,8 +40,9 @@ def vista_menu_inicio_admin():
 def vista_admins_admin():
     if 'conectado' in session:
         tipo = "Administrador"
+        estado = "Activo"
         usuarios = consultarMatriz('usuario')  
-        usuario_admin = [usuario for usuario in usuarios if usuario[6] == tipo]
+        usuario_admin = [usuario for usuario in usuarios if usuario[6] == tipo and usuario[7] == estado]
         return render_template('administrador/VistaAdministradoresAdmin.html', dataLogin = dataLoginSesion(),usuarios = usuario_admin)
     return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_sup_admin")
@@ -71,8 +73,9 @@ def vista_ent_admin():
 def vista_cli_admin():
     if 'conectado' in session:
         tipo = "Cliente"
+        estado = "Activo"
         usuarios = consultarMatriz('usuario')  
-        usuario_cliente = [usuario for usuario in usuarios if usuario[6] == tipo]
+        usuario_cliente = [usuario for usuario in usuarios if usuario[6] == tipo and usuario[7] == estado]
         return render_template('administrador/VistaClientesAdmin.html', dataLogin = dataLoginSesion(), usuarios = usuario_cliente)
     return redirect(url_for('vista_menu_inicio_admin'))
 
@@ -105,10 +108,16 @@ def controlregistro():
     apellido = request.form["apellido"]
     cedula = request.form["cedula_usuario"]
     email = request.form["email"]
+    telefono = request.form["telefono"]
+    fecha = request.form["fecha_nacimiento"]
     password = request.form["password"]
-    registro_usuario(cedula, nombre, apellido, email, password)
-    print (nombre, apellido, cedula, email, password)
-    return register()
+    tipo_usuario = "Cliente"
+    estado = "Inactivo"
+    if password == request.form["confirmpassword"]:
+        registro_usuario(cedula, nombre, apellido, telefono, fecha, email, tipo_usuario, estado, password)
+    else:
+        return register()
+    return redirect(url_for('Inicio_secion'))
     
 @app.route("/cambio")
 def cambio():
@@ -139,5 +148,38 @@ def cerrar_sesion():
     session.pop('email', None)
     msgClose ="La sesión fue cerrada correctamente"
     return render_template('VistaInicioSesion.html' , msjAlert = msgClose, typeAlert=1)
+
+@app.route('/eliminar_Usuario', methods = ["POST"])
+def eliminar_usuario():
+    id_usuario = request.form["itemId"]
+    ControlmodalUsuarios.desactivar_usuario(id_usuario)
+    return redirect(url_for('vista_menu_inicio_admin'))
+
+@app.route('/editarusuario', methods = ["POST"])
+def editar_usuario():
+    id_usuario = request.form["editItemId"]
+    nombre = request.form["editItemName"]
+    apellido = request.form["editItemApe"]
+    telefono = request.form["editItemtelefono"]
+    fecha = request.form["editItemFecha"]
+    email = request.form["editItemEmail"]
+    ControlmodalUsuarios.editar_usuario(id_usuario,nombre,apellido,telefono,fecha,email)
+    return redirect(url_for('vista_menu_inicio_admin'))
+
+@app.route('/registro_modal', methods = ["POST"])
+def registrar_usuario():
+    id_usuario = request.form["RegisItemCedula"]
+    nombre = request.form["RegisItemName"]
+    apellido = request.form["RegisItemApellido"]
+    telefono = request.form["RegisItemTelefono"]
+    fecha = request.form["RegisItemFecha"]
+    email = request.form["RegisItemEmail"]
+    tipoUsuario = request.form["RegisItemTipoUsuario"]
+    estado = "Activo"
+    contra = request.form["RegisItemContra"]
+    ControlmodalUsuarios.registro_usuario(id_usuario,nombre,apellido,telefono,fecha,email, tipoUsuario, estado, contra)
+    return redirect(url_for('vista_menu_inicio_admin'))
+
+
 
 app.run(host='0.0.0.0',port=81, debug=True)
