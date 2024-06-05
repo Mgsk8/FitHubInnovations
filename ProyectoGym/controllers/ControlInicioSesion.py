@@ -23,12 +23,13 @@ def inicio_sesion_prueba(email, password):
             # Crear datos de sesión, para poder acceder a estos datos en otras rutas 
             session['conectado']        = True
             session['cedula_usuario']   = usuario[0]
-            session['tipo_usuario']     = usuario[6]
             session['nombre']           = usuario[1]
             session['apellido']         = usuario[2]
-            #session['fechaNacimiento'] = usuario[3]
+            session['telefono']         = usuario[3]
+            session['fechaNacimiento']  = usuario[4]
             session['email']            = usuario[5]
-            session['estado']           = usuario[8]
+            session['tipo_usuario']     = usuario[6]
+            session['estado']           = usuario[7]
 
             msg = "Ha iniciado sesión correctamente."
             return dataLoginSesion()
