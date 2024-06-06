@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'administrador/dashboardAdmin.html' %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Graficos</title>
+    <link rel="stylesheet" href="../../static/bootstrap-5.0.2-dist/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <script src="../../static/vendor/chart.js/Chart.js"></script>
+    <script src="../../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</head>
+{% block page_content %}
+<!-- Bar Chart -->
+<div class="container mt-5">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">{% block titulo %} Control Graficos | {% endblock %}</h6>
+        </div>
+        <div class="card-body">
+            <div class="chart-bar">
+                <canvas id="myBarChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% block grafic_content %} {% endblock %}
+
+{% endblock %}
+</html>

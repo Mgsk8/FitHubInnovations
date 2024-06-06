@@ -1,0 +1,85 @@
+{% extends'administrador/controlGraficos.html' %}
+
+{% block nombreUsuario %}
+{{ dataLogin.nombre }}
+{% endblock %}
+
+{% block titulo %}
+Grafico Usuarios por estado
+{% endblock %}
+
+{% block grafic_content %} 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Datos para el gráfico
+        const datos = "{{ conteo_usuarios }}"
+        const dataArray = [];
+        const valores = datos.match(/\d+/g);
+
+        if (valores) {
+            for (let i = 0; i < valores.length; i++) {
+                const num = parseInt(valores[i], 10);
+                if (!isNaN(num)) {
+                    dataArray.push(num);
+                }
+            }
+        }
+        console.log(dataArray)
+        const data = {
+            labels: ['Activos', 'Inactivos'],
+            datasets: [{
+                label: 'Usuarios',
+                data: dataArray,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Opciones para el gráfico
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top'
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false
+            }
+        }
+    };
+
+        // Inicializar el gráfico
+        const ctx = document.getElementById('myBarChart').getContext('2d');
+        const myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    });
+</script>
+
+{% endblock %}

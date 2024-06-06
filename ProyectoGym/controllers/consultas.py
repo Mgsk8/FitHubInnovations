@@ -194,3 +194,31 @@ def delete(tabla, campo, dato):
             if cursor:
                 cursor.close()
             database.desconectar(conexion)
+
+def consultarConteo(tabla, condicion=None):
+    conexion = database.conectar()
+    if conexion:
+        try:
+            cursor = conexion.cursor()
+            if condicion:
+                sql = "SELECT COUNT(*) FROM {} WHERE {};"
+                cursor.execute(sql.format(tabla, condicion))
+            else:
+                sql = "SELECT COUNT(*) FROM {};"
+                cursor.execute(sql.format(tabla))
+            resultado = cursor.fetchone()
+            if resultado is not None:
+                return resultado[0]
+            else:
+                print("No se encontraron resultados en la consulta.")
+                return False
+        except Exception as ex:
+            print(f"Error al ejecutar la consulta: {ex}")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            database.desconectar(conexion)
+    else:
+        print("No se pudo establecer la conexión a la base de datos.")
+        return False
