@@ -86,8 +86,11 @@ def vista_cli_admin():
         global clase_actual
         clase_actual = "vista_cli_admin"
         tipo = "Cliente"
-        usuarios = consultarMatriz('usuario')  
-        usuario_cliente = [usuario for usuario in usuarios if usuario[6] == tipo]
+        usuarios = consultarMatriz('usuario')
+        if session['tipo_usuario'] == "Cliente":
+            usuario_cliente = [usuario for usuario in usuarios if usuario[6] == tipo and usuario[0] == session['cedula_usuario']]
+        else:
+            usuario_cliente = [usuario for usuario in usuarios if usuario[6] == tipo]
         return render_template('administrador/VistaClientesAdmin.html', dataLogin = dataLoginSesion(), usuarios = usuario_cliente)
     return redirect(url_for('vista_menu_inicio_admin'))
 
@@ -200,8 +203,11 @@ def vista_membresia_g():
     if 'conectado' in session:
         global clase_actual
         clase_actual = "vista_membresia_g"
-        membresias = consultarMatriz('membresia_cliente')  
-        membresia_cliente = [membresia for membresia in membresias]
+        membresias = consultarMatriz('membresia_cliente')
+        if session['tipo_usuario'] == "Cliente":
+            membresia_cliente = [membresia for membresia in membresias if membresia[4] == session['cedula_usuario']]
+        else:
+            membresia_cliente = [membresia for membresia in membresias]
         return render_template('administrador/Vistamembresias.html',dataLogin = dataLoginSesion(), membresias = membresia_cliente)
     return redirect(url_for('vista_menu_inicio_admin'))
 
