@@ -1,6 +1,11 @@
 from datetime import datetime, timedelta
 from flask import redirect
+
 from controllers.consultas import registro_membresiag, actualizarFila
+
+from controllers.consultas import registro 
+from controllers.consultas import registro_cliente
+
 
 
     
@@ -9,6 +14,7 @@ def registro_membresia(fecha_inicio, tipo_membresia, id_cliente):
     fecha_fin_dt = fecha_inicio_dt + timedelta(days=30)
     fecha_fin = fecha_fin_dt.strftime('%Y-%m-%d')
     registro_membresiag(fecha_inicio,fecha_fin,tipo_membresia,id_cliente)
+
 
 def editar_membresia(id_membresia,fecha_inicio,tipo_membresia,cedula_cliente):
     datos = []
@@ -31,3 +37,10 @@ def desactivar_membresia(id_membresia):
     datos.append(estado)
     condicion = f"id_membresia = {id_membresia}" 
     actualizarFila('membresia_cliente',datos,condicion)
+
+def registro_usuario(cedula, nombre, apellido,telefono, fecha_nacimiento, email, tipo_usuario, estado, password):
+    registro(cedula, nombre, apellido, telefono, fecha_nacimiento, email, tipo_usuario, estado, password)
+    registro_cli(cedula)
+def registro_cli(cedula):
+    registro_cliente(cedula, "", "no", "")
+

@@ -4,6 +4,8 @@ from controllers.ControlOlvidarContraseña import validarCorreo, enviarCorreo
 from controllers.consultas import *
 from Util.Session import *
 from controllers import ControlmodalUsuarios, controlRegistro
+from controllers import ControlGraficos
+
 
 
 app = Flask(__name__)
@@ -187,7 +189,7 @@ def registrar_usuario():
     telefono = request.form["RegisItemTelefono"]
     fecha = request.form["RegisItemFecha"]
     email = request.form["RegisItemEmail"]
-    tipoUsuario = request.form["RegisItemTipoUsuario"]
+    tipoUsuario = str(request.form["RegisItemTipoUsuario"])
     estado = "Activo"
     contra = request.form["RegisItemContra"]
     ControlmodalUsuarios.registro_usuario(id_usuario,nombre,apellido,telefono,fecha,email, tipoUsuario, estado, contra)
@@ -211,7 +213,65 @@ def registrar_membresia():
     Tipo_membresia = request.form["RegisItemTipoUsuario"]
     controlRegistro.registro_membresia(fecha_inicio,Tipo_membresia,cedula_cliente)
     return redirect(url_for(clase_actual))
+@app.route("/vista_graf_tipousu")
+def vista_graf_tipousu():
+    if 'conectado' in session:
+        global clase_actual
+        clase_actual = "vista_graf_tipousu"
+        conteo_usuarios = []
+        administradores = ControlGraficos.conteo_tipo_usuario("usuario", "Administrador")
+        supervisores = ControlGraficos.conteo_tipo_usuario("usuario", "Supervisor")
+        recepcionistas = ControlGraficos.conteo_tipo_usuario("usuario", "Recepcionista")
+        entrenadores = ControlGraficos.conteo_tipo_usuario("usuario", "Entrenador")
+        clientes = ControlGraficos.conteo_tipo_usuario("usuario", "Cliente")
+        conteo_usuarios.append(administradores)
+        conteo_usuarios.append(supervisores)
+        conteo_usuarios.append(recepcionistas)
+        conteo_usuarios.append(entrenadores)
+        conteo_usuarios.append(clientes)
+        return render_template('administrador/VistaGrafTipoUsu.html', dataLogin = dataLoginSesion(), conteo_usuarios = conteo_usuarios)
+    return redirect(url_for('vista_menu_inicio_admin'))
 
+@app.route("/vista_graf_usuact")
+def vista_graf_usuact():
+    if 'conectado' in session:
+        global clase_actual
+        clase_actual = "vista_graf_tipousu"
+        conteo_usuarios = []
+        activos = ControlGraficos.conteo_usuario_activos("usuario", "Activo")
+        inactivos = ControlGraficos.conteo_usuario_activos("usuario", "Inactivo")
+        conteo_usuarios.append(activos)
+        conteo_usuarios.append(inactivos)
+        return render_template('administrador/VistaGrafUsuAct.html', dataLogin = dataLoginSesion(), conteo_usuarios = conteo_usuarios)
+    return redirect(url_for('vista_menu_inicio_admin'))
+
+@app.route("/vista_graf_tipomem")
+def vista_graf_tipomem():
+    if 'conectado' in session:
+        global clase_actual
+        clase_actual = "vista_graf_tipousu"
+        conteo_membresias = []
+        bronce = ControlGraficos.conteo_tipo_membresias("membresia_cliente", "Bronce")
+        plata = ControlGraficos.conteo_tipo_membresias("membresia_cliente", "Plata")
+        oro = ControlGraficos.conteo_tipo_membresias("membresia_cliente", "Oro")
+        conteo_membresias.append(bronce)
+        conteo_membresias.append(plata)
+        conteo_membresias.append(oro)
+        return render_template('administrador/VistaGrafTipoMem.html', dataLogin = dataLoginSesion(), conteo_membresias = conteo_membresias)
+    return redirect(url_for('vista_menu_inicio_admin'))
+
+@app.route("/vista_graf_memact")
+def vista_graf_memact():
+    if 'conectado' in session:
+        global clase_actual
+        clase_actual = "vista_graf_tipousu"
+        conteo_membresias = []
+        activos = ControlGraficos.conteo_membresias_activas("membresia_cliente", "Activo")
+        inactivos = ControlGraficos.conteo_membresias_activas("membresia_cliente", "Inactivo")
+        conteo_membresias.append(activos)
+        conteo_membresias.append(inactivos)
+        return render_template('administrador/VistaGrafMemAct.html', dataLogin = dataLoginSesion(), conteo_membresias = conteo_membresias)
+    return redirect(url_for('vista_menu_inicio_admin'))
 @app.route('/editarmembresia', methods = ["POST"])
 def editarmembresia():
     global clase_actual
