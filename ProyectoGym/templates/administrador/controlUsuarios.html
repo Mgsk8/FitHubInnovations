@@ -305,11 +305,36 @@
     </div>
   </div>
   <script>
+    document
+      .getElementById("input-search")
+      .addEventListener("input", onInputChange);
+    function onInputChange() {
+      let inputText = document
+        .getElementById("input-search")
+        .value.toString()
+        .toLowerCase();
+      console.log(inputText);
+      let tableBody = document.getElementById("tbody-usuarios");
+      console.log(tableBody);
+      let tableRows = tableBody.getElementsByTagName("tr");
+      console.log(tableRows);
+      for (let i = 0; i < tableRows.length; i++) {
+        console.log(tableRows[i].cells[0].textContent);
+        let textoConsulta = tableRows[i].cells[1].textContent
+          .toString()
+          .toLowerCase();
+        if (textoConsulta.indexOf(inputText) === -1) {
+          tableRows[i].style.visibility = "collapse";
+        } else {
+          tableRows[i].style.visibility = "";
+        }
+      }
+    }
+
     function abrirModalEli(itemId) {
       document.getElementById("itemId").value = itemId;
     }
-  </script>
-  <script>
+
     function llenarModal(
       itemId,
       itemName,
@@ -326,39 +351,5 @@
       document.getElementById("editItemEmail").value = itemEmail;
     }
   </script>
-  <script>
-    document
-      .getElementById("input-search")
-      .addEventListener("input", onInputChange);
-    function onInputChange() {
-      let inputText = document
-        .getElementById("input-search")
-        .value.toString()
-        .toLowerCase();
-      console.log(inputText);
-      let tableBody = document.getElementById("tbody-usuarios");
-      let tableRows = tableBody.getElementsByTagName("tr");
-      for (let i = 0; i < tableRows.length; i++) {
-        console.log(tableRows[i].cells[1].textContent);
-        let textoConsulta = tableRows[i].cells[1].textContent
-          .toString()
-          .toLowerCase();
-        if (textoConsulta.indexOf(inputText) === -1) {
-          tableRows[i].style.visibility = "collapse";
-        } else {
-          tableRows[i].style.visibility = "";
-        }
-        textoConsulta = tableRows[i].cells[5].textContent
-          .toString()
-          .toLowerCase();
-        if (textoConsulta.indexOf(inputText) === -1) {
-          tableRows[i].style.visibility = "collapse";
-        } else {
-          tableRows[i].style.visibility = "";
-        }
-      }
-    }
-  </script>
-
   {% endblock %}
 </html>

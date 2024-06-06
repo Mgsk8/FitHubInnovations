@@ -25,3 +25,21 @@ def editar_usuario(editItemId,editItemName,editItemApe,editItemtelefono,editItem
 
 def registro_usuario(cedula, nombre, apellido,telefono, fecha_nacimiento, email, tipo_usuario, estado, password):
     consultas.registro(cedula, nombre, apellido, telefono, fecha_nacimiento, email, tipo_usuario, estado, password)
+    if tipo_usuario == 1 or tipo_usuario == "Administrador" or tipo_usuario == "1":
+        print("")
+    if tipo_usuario == 5 or tipo_usuario == "Cliente" or tipo_usuario == "5":
+        registro_cli(cedula)
+def registro_admin():
+    return 0
+
+def registro_sup():
+    return 0
+
+def registro_rec():
+    return 0
+
+def registro_ent():
+    return 0
+
+def registro_cli(cedula):
+    consultas.registro_cliente(cedula, "", "no", "")
