@@ -222,3 +222,24 @@ def consultarConteo(tabla, condicion=None):
     else:
         print("No se pudo establecer la conexión a la base de datos.")
         return False
+
+def registro_cliente(cedula, contacto_emergencia, limitaciones_fisicas, especificacion_limitacion):
+    conexion = database.conectar()
+    if conexion:
+        try:
+            cursor = conexion.cursor()
+            sql = "INSERT INTO cliente (cedula_cliente, contacto_emergencia, limitaciones_fisicas, especificacion_limitacion) VALUES (%s, %s, %s, %s);"
+            cursor.execute(sql, (cedula, contacto_emergencia, limitaciones_fisicas, especificacion_limitacion))
+            conexion.commit()  # Agregamos el commit para confirmar los cambios
+            print("Cliente registrado exitosamente.")
+            return True
+        except Exception as ex:
+            print(f"Error al crear usuario: {ex}")
+            # NO SE PUDO REGISTRAR USUARIO
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            database.desconectar(conexion)
+    else:
+        print("Error de conexión a la base de datos.")

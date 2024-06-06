@@ -190,7 +190,7 @@ def registrar_usuario():
     telefono = request.form["RegisItemTelefono"]
     fecha = request.form["RegisItemFecha"]
     email = request.form["RegisItemEmail"]
-    tipoUsuario = request.form["RegisItemTipoUsuario"]
+    tipoUsuario = str(request.form["RegisItemTipoUsuario"])
     estado = "Activo"
     contra = request.form["RegisItemContra"]
     ControlmodalUsuarios.registro_usuario(id_usuario,nombre,apellido,telefono,fecha,email, tipoUsuario, estado, contra)
