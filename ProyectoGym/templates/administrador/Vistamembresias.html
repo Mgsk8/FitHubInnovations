@@ -83,7 +83,7 @@
                       onclick="llenarModal('{{ membresia[0] }}','{{ membresia[1] }}','{{ membresia[4] }}','{{ membresia[3] }}')"
                       class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                           title="Edit">&#xE254;</i></a>
-                  <a href="#eliminarMembresiaModal" onclick="abrirModalEli('{{ membresia[0] }}')" class="delete"
+                  <a href="#eliminarMembresiaModal" onclick="abrirModalEli('{{ membresia[0] }}', '{{ membresia[5] }}')" class="delete"
                       data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
               </td>
           </tr>
@@ -231,6 +231,7 @@
           <div class="modal-header">
             <h4 class="modal-title">Eliminar Membresia</h4>
             <input type="hidden" id="itemId" name="itemId" />
+            <input type="hidden" id="itemEstado" name="itemEstado" />
             <button
               type="button"
               class="close"
@@ -286,8 +287,9 @@
       }
     }
 
-    function abrirModalEli(itemId) {
+    function abrirModalEli(itemId, estado) {
       document.getElementById("itemId").value = itemId;
+      document.getElementById("itemEstado").value = estado;
     }
 
     function llenarModal(

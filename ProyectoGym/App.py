@@ -77,7 +77,7 @@ def vista_ent_admin():
         clase_actual = "vista_ent_admin"
         tipo = "Entrenador"
         usuarios = consultarMatriz('usuario')
-        if session['tipo_usuario'] == "Cliente":
+        if session['tipo_usuario'] == "Entrenador":
             usuario_entre = [usuario for usuario in usuarios if usuario[6] == tipo and usuario[0] == session['cedula_usuario']]
         else:
             usuario_entre = [usuario for usuario in usuarios if usuario[6] == tipo]
@@ -171,7 +171,11 @@ def cerrar_sesion():
 def eliminar_usuario():
     global clase_actual
     id_usuario = request.form["itemId"]
-    ControlmodalUsuarios.desactivar_usuario(id_usuario)
+    estado_usuario = request.form["itemEstado"]
+    if estado_usuario == "Activo":
+        ControlmodalUsuarios.desactivar_usuario(id_usuario)
+    if estado_usuario == "Inactivo":
+        ControlmodalUsuarios.activar_usuario(id_usuario)
     return redirect(url_for(clase_actual))
 
 @app.route('/editarusuario', methods = ["POST"])
@@ -295,6 +299,10 @@ def editarmembresia():
 def eliminar_membresia():
     global clase_actual
     id_membresia = request.form["itemId"]
-    controlRegistro.desactivar_membresia(id_membresia)
+    estado_membresia = request.form["itemEstado"]
+    if estado_membresia == "Activo":
+        controlRegistro.desactivar_membresia(id_membresia)
+    if estado_membresia == "Inactivo":
+        controlRegistro.activar_membresia(id_membresia)
     return redirect(url_for(clase_actual))
 app.run(host='0.0.0.0',port=81, debug=True)

@@ -37,6 +37,13 @@ def desactivar_membresia(id_membresia):
     datos.append(estado)
     condicion = f"id_membresia = {id_membresia}" 
     actualizarFila('membresia_cliente',datos,condicion)
+    
+def activar_membresia(id_membresia):
+    datos = []
+    estado = "estado = 'Activo'"
+    datos.append(estado)
+    condicion = f"id_membresia = {id_membresia}" 
+    actualizarFila('membresia_cliente',datos,condicion)
 
 def registro_usuario(cedula, nombre, apellido,telefono, fecha_nacimiento, email, tipo_usuario, estado, password):
     registro(cedula, nombre, apellido, telefono, fecha_nacimiento, email, tipo_usuario, estado, password)

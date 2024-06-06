@@ -8,6 +8,13 @@ def desactivar_usuario(id_usuario):
     condicion = f"cedula_usuario = {id_usuario}" 
     consultas.actualizarFila('usuario',datos,condicion)
 
+def activar_usuario(id_usuario):
+    datos = []
+    estado = "estado = 'Activo'"
+    datos.append(estado)
+    condicion = f"cedula_usuario = {id_usuario}" 
+    consultas.actualizarFila('usuario',datos,condicion)
+
 def editar_usuario(editItemId,editItemName,editItemApe,editItemtelefono,editItemFecha,editItemEmail):
     datos = []
     condicion = f"cedula_usuario = {editItemId}"

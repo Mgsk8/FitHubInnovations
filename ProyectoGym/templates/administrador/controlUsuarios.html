@@ -278,6 +278,7 @@
           <div class="modal-header">
             <h4 class="modal-title">Eliminar Empleado</h4>
             <input type="hidden" id="itemId" name="itemId" />
+            <input type="hidden" id="itemEstado" name="itemEstado" />
             <button
               type="button"
               class="close"
@@ -333,8 +334,9 @@
       }
     }
 
-    function abrirModalEli(itemId) {
+    function abrirModalEli(itemId, estado) {
       document.getElementById("itemId").value = itemId;
+      document.getElementById("itemEstado").value = estado;
     }
 
     function llenarModal(
