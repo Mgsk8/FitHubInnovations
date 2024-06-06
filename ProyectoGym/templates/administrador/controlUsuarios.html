@@ -31,14 +31,16 @@
             <h2>{% block titulo %} Control de usuarios | {% endblock %}</h2>
           </div>
           <div class="col-sm-6">
+            {% if(dataLogin.tipo_usuario != 'Entrenador' and dataLogin.tipo_usuario != 'Cliente') %}
             <a
               href="#aggEmpleadoModal"
               onclick=""
               class="btn btn-success"
               data-toggle="modal"
               ><i class="material-icons">&#xE147;</i>
-              <span>Añadir Nuevo Empleado</span></a
+              <span>Añadir Nuevo Usuario</span></a
             >
+            {% endif %}
             <!--<a href="#eliminarEmpleadoModal" class="btn btn-danger" data-toggle="modal"><i
                             class="material-icons">&#xE15C;</i> <span>NO TOCAR</span></a>-->
           </div>

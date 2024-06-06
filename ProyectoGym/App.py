@@ -76,8 +76,11 @@ def vista_ent_admin():
         global clase_actual
         clase_actual = "vista_ent_admin"
         tipo = "Entrenador"
-        usuarios = consultarMatriz('usuario')  
-        usuario_entre = [usuario for usuario in usuarios if usuario[6] == tipo]
+        usuarios = consultarMatriz('usuario')
+        if session['tipo_usuario'] == "Cliente":
+            usuario_entre = [usuario for usuario in usuarios if usuario[6] == tipo and usuario[0] == session['cedula_usuario']]
+        else:
+            usuario_entre = [usuario for usuario in usuarios if usuario[6] == tipo]
         return render_template('administrador/VistaEntrenadoresAdmin.html', dataLogin = dataLoginSesion(), usuarios = usuario_entre)
     return redirect(url_for('vista_menu_inicio_admin'))
 @app.route("/vista_cli_admin")
