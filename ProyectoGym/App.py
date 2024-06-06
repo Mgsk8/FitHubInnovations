@@ -1,11 +1,11 @@
 from flask import Flask,render_template, request, redirect, url_for, session
 from controllers.ControlInicioSesion import validar_usuario, inicio_sesion_prueba
-from controllers.controlRegistro import registro_usuario
 from controllers.ControlOlvidarContraseña import validarCorreo, enviarCorreo
 from controllers.consultas import *
 from Util.Session import *
-from controllers import ControlmodalUsuarios
+from controllers import ControlmodalUsuarios, controlRegistro
 from controllers import ControlGraficos
+
 
 
 app = Flask(__name__)
@@ -86,9 +86,8 @@ def vista_cli_admin():
         global clase_actual
         clase_actual = "vista_cli_admin"
         tipo = "Cliente"
-        estado = "Activo"
         usuarios = consultarMatriz('usuario')  
-        usuario_cliente = [usuario for usuario in usuarios if usuario[6] == tipo and usuario[7] == estado]
+        usuario_cliente = [usuario for usuario in usuarios if usuario[6] == tipo]
         return render_template('administrador/VistaClientesAdmin.html', dataLogin = dataLoginSesion(), usuarios = usuario_cliente)
     return redirect(url_for('vista_menu_inicio_admin'))
 
@@ -127,7 +126,7 @@ def controlregistro():
     tipo_usuario = "Cliente"
     estado = "Inactivo"
     if password == request.form["confirmpassword"]:
-        registro_usuario(cedula, nombre, apellido, telefono, fecha, email, tipo_usuario, estado, password)
+        ControlmodalUsuarios.registro_usuario(cedula, nombre, apellido, telefono, fecha, email, tipo_usuario, estado, password)
     else:
         return register()
     return redirect(url_for('Inicio_secion'))
@@ -196,6 +195,24 @@ def registrar_usuario():
     ControlmodalUsuarios.registro_usuario(id_usuario,nombre,apellido,telefono,fecha,email, tipoUsuario, estado, contra)
     return redirect(url_for(clase_actual))
 
+@app.route("/vista_membresia_g")
+def vista_membresia_g():
+    if 'conectado' in session:
+        global clase_actual
+        clase_actual = "vista_membresia_g"
+        membresias = consultarMatriz('membresia_cliente')  
+        membresia_cliente = [membresia for membresia in membresias]
+        return render_template('administrador/Vistamembresias.html',dataLogin = dataLoginSesion(), membresias = membresia_cliente)
+    return redirect(url_for('vista_menu_inicio_admin'))
+
+@app.route('/registro_membresia', methods = ["POST"])
+def registrar_membresia():
+    global clase_actual
+    fecha_inicio = request.form["RegisItemDate"]
+    cedula_cliente = request.form["RegisItemCedulaC"]
+    Tipo_membresia = request.form["RegisItemTipoUsuario"]
+    controlRegistro.registro_membresia(fecha_inicio,Tipo_membresia,cedula_cliente)
+    return redirect(url_for(clase_actual))
 @app.route("/vista_graf_tipousu")
 def vista_graf_tipousu():
     if 'conectado' in session:
@@ -255,6 +272,20 @@ def vista_graf_memact():
         conteo_membresias.append(inactivos)
         return render_template('administrador/VistaGrafMemAct.html', dataLogin = dataLoginSesion(), conteo_membresias = conteo_membresias)
     return redirect(url_for('vista_menu_inicio_admin'))
+@app.route('/editarmembresia', methods = ["POST"])
+def editarmembresia():
+    global clase_actual
+    id_membresia = request.form["editItemId"]
+    fecha_inicio = request.form["editItemDate"]
+    cedula_cliente = request.form["editItemCedula"]
+    tipo_membresia = request.form["editItemTipomembresia"]
+    controlRegistro.editar_membresia(id_membresia,fecha_inicio,tipo_membresia,cedula_cliente)
+    return redirect(url_for(clase_actual))
 
-
+@app.route('/eliminar_membresia', methods = ["POST"])
+def eliminar_membresia():
+    global clase_actual
+    id_membresia = request.form["itemId"]
+    controlRegistro.desactivar_membresia(id_membresia)
+    return redirect(url_for(clase_actual))
 app.run(host='0.0.0.0',port=81, debug=True)
